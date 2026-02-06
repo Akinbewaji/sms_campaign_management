@@ -1,10 +1,11 @@
-const axios = require('axios');
+const axios = require("axios");
 
 class AfricasTalkingService {
   constructor() {
     this.username = process.env.AT_USERNAME;
     this.apiKey = process.env.AT_API_KEY;
-    this.apiUrl = 'https://api.sandbox.africastalking.com/version1/messaging';
+    // this.apiUrl = 'https://api.sandbox.africastalking.com/version1/messaging';
+    this.apiUrl = "https://api.africastalking.com/version1/messaging";
   }
 
   /**
@@ -24,21 +25,24 @@ class AfricasTalkingService {
         },
         {
           headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'apiKey': this.apiKey,
+            Accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
+            apiKey: this.apiKey,
           },
-        }
+        },
       );
 
-      console.log('[Africa\'s Talking] SMS sent successfully:', response.data);
+      console.log("[Africa's Talking] SMS sent successfully:", response.data);
       return {
         success: true,
         data: response.data,
         messageId: response.data.SMSMessageData?.Messages?.[0]?.id,
       };
     } catch (error) {
-      console.error('[Africa\'s Talking] Error sending SMS:', error.response?.data || error.message);
+      console.error(
+        "[Africa's Talking] Error sending SMS:",
+        error.response?.data || error.message,
+      );
       return {
         success: false,
         error: error.response?.data?.message || error.message,
@@ -58,19 +62,22 @@ class AfricasTalkingService {
         this.apiUrl,
         {
           username: this.username,
-          to: phoneNumbers.join(','),
+          to: phoneNumbers.join(","),
           message: message,
         },
         {
           headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'apiKey': this.apiKey,
+            Accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
+            apiKey: this.apiKey,
           },
-        }
+        },
       );
 
-      console.log('[Africa\'s Talking] Bulk SMS sent successfully:', response.data);
+      console.log(
+        "[Africa's Talking] Bulk SMS sent successfully:",
+        response.data,
+      );
 
       return {
         success: true,
@@ -78,7 +85,10 @@ class AfricasTalkingService {
         messages: response.data.SMSMessageData?.Messages || [],
       };
     } catch (error) {
-      console.error('[Africa\'s Talking] Error sending bulk SMS:', error.response?.data || error.message);
+      console.error(
+        "[Africa's Talking] Error sending bulk SMS:",
+        error.response?.data || error.message,
+      );
       return {
         success: false,
         error: error.response?.data?.message || error.message,
@@ -93,26 +103,29 @@ class AfricasTalkingService {
   async getBalance() {
     try {
       const response = await axios.get(
-        'https://api.sandbox.africastalking.com/version1/user',
+        "https://api.sandbox.africastalking.com/version1/user",
         {
           params: {
             username: this.username,
           },
           headers: {
-            'Accept': 'application/json',
-            'apiKey': this.apiKey,
+            Accept: "application/json",
+            apiKey: this.apiKey,
           },
-        }
+        },
       );
 
-      console.log('[Africa\'s Talking] Balance fetched:', response.data);
+      console.log("[Africa's Talking] Balance fetched:", response.data);
       return {
         success: true,
         balance: response.data.UserData?.balance,
         currency: response.data.UserData?.currency,
       };
     } catch (error) {
-      console.error('[Africa\'s Talking] Error fetching balance:', error.response?.data || error.message);
+      console.error(
+        "[Africa's Talking] Error fetching balance:",
+        error.response?.data || error.message,
+      );
       return {
         success: false,
         error: error.response?.data?.message || error.message,

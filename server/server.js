@@ -1,48 +1,48 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-require('dotenv').config();
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+require("dotenv").config();
 
-const authRoutes = require('./routes/auth');
-const campaignRoutes = require('./routes/campaigns');
+const authRoutes = require("./routes/auth");
+const campaignRoutes = require("./routes/campaigns");
 
 const app = express();
 
 // Middleware
-app.use(cors({ origin: process.env.CORS_ORIGIN || '*' }));
+app.use(cors({ origin: process.env.CORS_ORIGIN || "*" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // MongoDB Connection
-// const connectDB = async () => {
-//   try {
-//     const conn = await mongoose.connect(process.env.MONGODB_URI, {
-//       useNewUrlParser: true,
-//       useUnifiedTopology: true,
-//     });
-//     console.log(`[v0] MongoDB connected: ${conn.connection.host}`);
-//   } catch (error) {
-//     console.error(`[v0] MongoDB connection error: ${error.message}`);
-//     process.exit(1);
-//   }
-// };
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log(`[v0] MongoDB connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.error(`[v0] MongoDB connection error: ${error.message}`);
+    process.exit(1);
+  }
+};
 
-// connectDB();
+connectDB();
 
 // Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/campaigns', campaignRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/campaigns", campaignRoutes);
 
 // Health check
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date() });
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok", timestamp: new Date() });
 });
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error('[v0] Error:', err);
+  console.error("[v0] Error:", err);
   res.status(err.status || 500).json({
-    message: err.message || 'Internal Server Error',
+    message: err.message || "Internal Server Error",
   });
 });
 
