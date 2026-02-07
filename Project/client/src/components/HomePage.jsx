@@ -81,9 +81,11 @@ export default function HomePage() {
             {isAuthenticated ? (
               <div className="user-menu">
                 <span className="user-name">Welcome, {user?.name}!</span>
-                <button onClick={handleLogout} className="btn-logout">
-                  Logout
-                </button>
+                <div>
+                    <button onClick={handleLogout} className="btn-logout">
+                        Logout
+                    </button>
+                </div>
               </div>
             ) : (
               <div className="auth-buttons">

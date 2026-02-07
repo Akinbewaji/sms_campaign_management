@@ -100,16 +100,16 @@
 }
 
 .btn-logout {
-  background: transparent;
-  color: #f44336;
-  border: 2px solid #f44336;
+  background: #f4433691;
+  color: white;
+  border: none;
+  font-weight: 600;
 }
 
 .btn-logout:hover {
-  background: #f44336;
-  color: white;
+  background: #d32f2f;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+  box-shadow: 0 4px 12px rgba(244, 67, 54, 0.4);
 }
 
 .home-main {
