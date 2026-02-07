@@ -10,7 +10,6 @@ import ServiceLayout from "./ServiceLayout";
 import "./Dashboard.css";
 
 export default function SMSCampaignService() {
-  const [user, setUser] = useState(null);
   const [campaigns, setCampaigns] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showCreateForm, setShowCreateForm] = useState(false);
@@ -25,7 +24,6 @@ export default function SMSCampaignService() {
           navigate("/login");
           return;
         }
-        setUser(currentUser);
 
         const campaignsData = await campaignService.getAllCampaigns();
         setCampaigns(campaignsData);
@@ -39,11 +37,6 @@ export default function SMSCampaignService() {
 
     fetchData();
   }, [navigate]);
-
-  const handleLogout = () => {
-    authService.logout();
-    navigate("/");
-  };
 
   const handleCampaignCreated = async (newCampaign) => {
     setCampaigns([newCampaign, ...campaigns]);
@@ -68,52 +61,34 @@ export default function SMSCampaignService() {
 
   return (
     <ServiceLayout serviceName="SMS Campaign">
-      <div className="dashboard">
-        <header className="dashboard-header">
-          <div className="header-content">
-            <h1>SMS Campaign Manager</h1>
-            <div className="user-info">
-              <span>Welcome, {user?.name}!</span>
-              <button onClick={handleLogout} className="btn-logout">
-                Logout
-              </button>
-            </div>
+      {error && <div className="error-message">{error}</div>}
+
+      <div className="campaigns-section">
+        <div className="section-header">
+          <h2>Campaigns</h2>
+          <div>
+            <button
+              onClick={() => setShowCreateForm(!showCreateForm)}
+              className="btn-primary"
+            >
+              {showCreateForm ? "Cancel" : "New Campaign"}
+            </button>
           </div>
-        </header>
+        </div>
 
-        <main className="dashboard-main">
-          <div className="dashboard-container">
-            {error && <div className="error-message">{error}</div>}
+        {showCreateForm && (
+          <CreateCampaign
+            onCampaignCreated={handleCampaignCreated}
+            onCancel={() => setShowCreateForm(false)}
+          />
+        )}
 
-            <div className="campaigns-section">
-              <div className="section-header">
-                <h2>Campaigns</h2>
-                <div>
-                  <button
-                    onClick={() => setShowCreateForm(!showCreateForm)}
-                    className="btn-primary"
-                  >
-                    {showCreateForm ? "Cancel" : "New Campaign"}
-                  </button>
-                </div>
-              </div>
-
-              {showCreateForm && (
-                <CreateCampaign
-                  onCampaignCreated={handleCampaignCreated}
-                  onCancel={() => setShowCreateForm(false)}
-                />
-              )}
-
-              <CampaignList
-                campaigns={campaigns}
-                onCampaignUpdated={handleCampaignUpdated}
-                onCampaignDeleted={handleCampaignDeleted}
-                onCampaignCreated={handleCampaignCreated}
-              />
-            </div>
-          </div>
-        </main>
+        <CampaignList
+          campaigns={campaigns}
+          onCampaignUpdated={handleCampaignUpdated}
+          onCampaignDeleted={handleCampaignDeleted}
+          onCampaignCreated={handleCampaignCreated}
+        />
       </div>
     </ServiceLayout>
   );
