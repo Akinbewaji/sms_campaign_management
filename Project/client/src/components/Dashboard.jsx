@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { authService } from '../services/authService';
-import { campaignService } from '../services/campaignService';
-import CampaignList from './CampaignList';
-import CreateCampaign from './CreateCampaign';
-import './Dashboard.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { authService } from "../services/authService";
+import { campaignService } from "../services/campaignService";
+import CampaignList from "./CampaignList";
+import CreateCampaign from "./CreateCampaign";
+import "./Dashboard.css";
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
   const [campaigns, setCampaigns] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showCreateForm, setShowCreateForm] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function Dashboard() {
       try {
         const currentUser = authService.getUser();
         if (!currentUser) {
-          navigate('/login');
+          navigate("/login");
           return;
         }
         setUser(currentUser);
@@ -29,7 +29,7 @@ export default function Dashboard() {
         const campaignsData = await campaignService.getAllCampaigns();
         setCampaigns(campaignsData);
       } catch (err) {
-        setError('Failed to load data');
+        setError("Failed to load data");
         console.error(err);
       } finally {
         setLoading(false);
@@ -41,7 +41,7 @@ export default function Dashboard() {
 
   const handleLogout = () => {
     authService.logout();
-    navigate('/login');
+    navigate("/login");
   };
 
   const handleCampaignCreated = async (newCampaign) => {
@@ -50,7 +50,11 @@ export default function Dashboard() {
   };
 
   const handleCampaignUpdated = async (updatedCampaign) => {
-    setCampaigns(campaigns.map((c) => (c._id === updatedCampaign._id ? updatedCampaign : c)));
+    setCampaigns(
+      campaigns.map((c) =>
+        c._id === updatedCampaign._id ? updatedCampaign : c,
+      ),
+    );
   };
 
   const handleCampaignDeleted = async (campaignId) => {
@@ -65,7 +69,7 @@ export default function Dashboard() {
     <div className="dashboard">
       <header className="dashboard-header">
         <div className="header-content">
-          <h1>SMS Campaign Manager</h1>
+          <h1>CAMPGER</h1>
           <div className="user-info">
             <span>Welcome, {user?.name}!</span>
             <button onClick={handleLogout} className="btn-logout">
@@ -82,9 +86,14 @@ export default function Dashboard() {
           <div className="campaigns-section">
             <div className="section-header">
               <h2>Campaigns</h2>
-              <button onClick={() => setShowCreateForm(!showCreateForm)} className="btn-primary">
-                {showCreateForm ? 'Cancel' : 'New Campaign'}
-              </button>
+              <div>
+                <button
+                  onClick={() => setShowCreateForm(!showCreateForm)}
+                  className="btn-primary"
+                >
+                  {showCreateForm ? "Cancel" : "New Campaign"}
+                </button>
+              </div>
             </div>
 
             {showCreateForm && (

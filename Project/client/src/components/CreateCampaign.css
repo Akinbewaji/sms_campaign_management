@@ -1,3 +1,45 @@
+.create-campaign {
+  width: 100%;
+}
+
+.form-container {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.form-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 20px;
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s;
+}
+
+.btn-close:hover {
+  color: #333;
+}
+
 .create-campaign-form {
   background: white;
   border-radius: 8px;

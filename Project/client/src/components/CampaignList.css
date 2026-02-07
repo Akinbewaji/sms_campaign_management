@@ -1,5 +1,6 @@
 .campaign-list {
   margin-top: 24px;
+  position: relative;
 }
 
 .campaigns-grid {
@@ -26,8 +27,35 @@
   font-size: 14px;
 }
 
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
 @media (max-width: 768px) {
   .campaigns-grid {
     grid-template-columns: 1fr;
+  }
+
+  .modal-content {
+    width: 95%;
   }
 }
