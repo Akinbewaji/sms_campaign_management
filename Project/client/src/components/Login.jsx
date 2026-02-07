@@ -1,18 +1,19 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { authService } from '../services/authService';
-import './Auth.css';
+import React, { useState } from "react";
+import { useNavigate, Link, useLocation } from "react-router-dom";
+import { authService } from "../services/authService";
+import "./Auth.css";
 
 export default function Login() {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,14 +25,15 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
       await authService.login(formData.email, formData.password);
-      navigate('/dashboard');
+      const returnTo = location.state?.returnTo || "/";
+      navigate(returnTo);
     } catch (err) {
-      setError(err.message || 'Login failed. Please try again.');
+      setError(err.message || "Login failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -40,6 +42,9 @@ export default function Login() {
   return (
     <div className="auth-container">
       <div className="auth-card">
+        <Link to="/" className="btn-home-link">
+          ← Back to CAMGER
+        </Link>
         <h1>SMS Campaign Manager</h1>
         <h2>Login</h2>
 
@@ -72,9 +77,11 @@ export default function Login() {
             />
           </div>
 
-          <button type="submit" disabled={loading} className="btn-primary">
-            {loading ? 'Logging in...' : 'Login'}
-          </button>
+          <div>
+            <button type="submit" disabled={loading} className="btn-primary">
+              {loading ? "Logging in..." : "Login"}
+            </button>
+          </div>
         </form>
 
         <p className="auth-link">

@@ -1,21 +1,22 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { authService } from '../services/authService';
-import './Auth.css';
+import React, { useState } from "react";
+import { useNavigate, Link, useLocation } from "react-router-dom";
+import { authService } from "../services/authService";
+import "./Auth.css";
 
 export default function Register() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    phone: '',
-    organization: '',
+    name: "",
+    email: "",
+    password: "",
+    phone: "",
+    organization: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,7 +28,7 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
@@ -36,11 +37,12 @@ export default function Register() {
         formData.email,
         formData.password,
         formData.phone,
-        formData.organization
+        formData.organization,
       );
-      navigate('/dashboard');
+      const returnTo = location.state?.returnTo || "/";
+      navigate(returnTo);
     } catch (err) {
-      setError(err.message || 'Registration failed. Please try again.');
+      setError(err.message || "Registration failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -49,6 +51,9 @@ export default function Register() {
   return (
     <div className="auth-container">
       <div className="auth-card">
+        <Link to="/" className="btn-home-link">
+          ← Back to CAMGER
+        </Link>
         <h1>SMS Campaign Manager</h1>
         <h2>Register</h2>
 
@@ -62,6 +67,19 @@ export default function Register() {
               id="name"
               name="name"
               value={formData.name}
+              onChange={handleChange}
+              required
+              placeholder="John Doe"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value={formData.username}
               onChange={handleChange}
               required
               placeholder="John Doe"
@@ -118,9 +136,11 @@ export default function Register() {
             />
           </div>
 
-          <button type="submit" disabled={loading} className="btn-primary">
-            {loading ? 'Registering...' : 'Register'}
-          </button>
+          <div>
+            <button type="submit" disabled={loading} className="btn-primary">
+              {loading ? "Registering..." : "Register"}
+            </button>
+          </div>
         </form>
 
         <p className="auth-link">

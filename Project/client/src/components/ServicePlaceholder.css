@@ -1,0 +1,82 @@
+.service-placeholder {
+  background: white;
+  border-radius: 12px;
+  padding: 60px 40px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.placeholder-icon {
+  font-size: 80px;
+  margin-bottom: 24px;
+}
+
+.service-placeholder h2 {
+  font-size: 32px;
+  margin: 0 0 16px 0;
+  color: #333;
+}
+
+.service-placeholder p {
+  font-size: 16px;
+  color: #666;
+  margin: 0 0 40px 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.placeholder-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 32px;
+  margin-bottom: 40px;
+}
+
+.placeholder-features .feature {
+  text-align: center;
+}
+
+.placeholder-features .feature h4 {
+  font-size: 18px;
+  margin: 0 0 12px 0;
+  color: #333;
+}
+
+.placeholder-features .feature p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.btn-coming-soon {
+  padding: 12px 32px;
+  background: #ffc107;
+  color: #333;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .service-placeholder {
+    padding: 40px 20px;
+  }
+
+  .placeholder-icon {
+    font-size: 60px;
+  }
+
+  .service-placeholder h2 {
+    font-size: 24px;
+  }
+
+  .placeholder-features {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
