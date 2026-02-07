@@ -50,11 +50,17 @@ export const useCampaignActions = (
         settings: campaign.settings || {},
       };
 
-      const created = await campaignService.createCampaign(newCampaignData);
-      // Try to send immediately
-      await campaignService.sendCampaign(created._id);
+      const createResult =
+        await campaignService.createCampaign(newCampaignData);
+      const createdCampaign = createResult.campaign;
 
-      if (onCampaignCreated) onCampaignCreated(created);
+      // Try to send immediately
+      const sendResult = await campaignService.sendCampaign(
+        createdCampaign._id,
+      );
+      const sentCampaign = sendResult.campaign;
+
+      if (onCampaignCreated) onCampaignCreated(sentCampaign);
     } catch (err) {
       setError(err.message || "Failed to rerun campaign");
     }

@@ -206,6 +206,9 @@ router.put(
   }
 );
 
+// Resend campaign (create a new campaign based on an existing one)
+//In Progess.....
+
 // Delete campaign
 router.delete('/:id', auth, async (req, res) => {
   try {
