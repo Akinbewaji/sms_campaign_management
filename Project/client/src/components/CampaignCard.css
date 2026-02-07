@@ -3,7 +3,9 @@
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s, transform 0.3s;
+  transition:
+    box-shadow 0.3s,
+    transform 0.3s;
 }
 
 .campaign-card:hover {
@@ -92,24 +94,53 @@
   display: flex;
   gap: 8px;
   margin-top: 16px;
+  align-items: center;
 }
 
-.btn-send,
-.btn-delete,
-.btn-edit {
-  flex: 1;
-  padding: 10px 12px;
+.btn-send {
+  flex: 1 1 auto;
+  padding: 10px 14px;
   border: none;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+  transition:
+    background-color 0.3s,
+    transform 0.2s;
+}
+
+.btn-edit,
+.btn-delete {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    transform 0.15s;
 }
 
 .btn-send {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+}
+
+.btn-rerun {
+  background: linear-gradient(135deg, #4caf50 0%, #43a047 100%);
+  color: white;
+}
+
+.btn-rerun:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
 }
 
 .btn-send:hover {

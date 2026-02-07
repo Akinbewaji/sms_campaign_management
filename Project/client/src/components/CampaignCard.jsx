@@ -18,7 +18,7 @@ import "./CampaignCard.css";
  * @param {Object} options - Display options: { showStats, showActions, showDescription }
  */
 export default function CampaignCard({ campaign, actions = {}, options = {} }) {
-  const { onSend, onDelete, onEdit } = actions;
+  const { onSend, onDelete, onEdit, onRerun } = actions;
 
   const {
     showStats = true,
@@ -86,6 +86,11 @@ export default function CampaignCard({ campaign, actions = {}, options = {} }) {
           {onSend && canSendCampaign(campaign) && (
             <button onClick={onSend} className="btn-send">
               Send Campaign
+            </button>
+          )}
+          {onRerun && campaign.status === "completed" && (
+            <button onClick={onRerun} className="btn-rerun">
+              Rerun
             </button>
           )}
           {onEdit && canEditCampaign(campaign) && (

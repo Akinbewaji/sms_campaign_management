@@ -28,7 +28,6 @@ export default function HomePage() {
       icon: "💳",
       color: "#764ba2",
       path: "/services/payments",
-      comingSoon: true,
     },
     {
       id: "airtime",
@@ -37,7 +36,6 @@ export default function HomePage() {
       icon: "📡",
       color: "#f093fb",
       path: "/services/airtime",
-      comingSoon: true,
     },
     {
       id: "voice",
@@ -46,7 +44,6 @@ export default function HomePage() {
       icon: "☎️",
       color: "#4facfe",
       path: "/services/voice",
-      comingSoon: true,
     },
     {
       id: "ussd",
@@ -56,7 +53,6 @@ export default function HomePage() {
       icon: "⌨️",
       color: "#43e97b",
       path: "/services/ussd",
-      comingSoon: true,
     },
   ];
 
@@ -78,7 +74,7 @@ export default function HomePage() {
       <header className="home-header">
         <div className="header-content">
           <div className="logo-section">
-            <h1 className="logo">CAMGER</h1>
+            <h1 className="logo">CAMPGER</h1>
             {/* <p className="tagline">Communication Management Gateway</p> */}
           </div>
           <div className="header-actions">
@@ -127,22 +123,15 @@ export default function HomePage() {
                 {service.badge && (
                   <span className="service-badge">{service.badge}</span>
                 )}
-                {service.comingSoon && (
-                  <span className="service-coming-soon">Coming Soon</span>
-                )}
+
                 <h4>{service.name}</h4>
                 <p>{service.description}</p>
                 <button
                   onClick={() => handleServiceClick(service)}
-                  disabled={service.comingSoon}
-                  className={`btn-service ${service.comingSoon ? "disabled" : ""}`}
-                  style={
-                    !service.comingSoon
-                      ? { backgroundColor: service.color }
-                      : {}
-                  }
+                  className="btn-service"
+                  style={{ backgroundColor: service.color }}
                 >
-                  {service.comingSoon ? "Coming Soon" : "Get Started"}
+                  Get Started
                 </button>
               </div>
             ))}

@@ -5,7 +5,11 @@ import { campaignService } from "../services/campaignService";
  * Custom hook for managing campaign actions (send, edit, delete)
  * Encapsulates all campaign-related business logic
  */
-export const useCampaignActions = (onCampaignUpdated, onCampaignDeleted) => {
+export const useCampaignActions = (
+  onCampaignUpdated,
+  onCampaignDeleted,
+  onCampaignCreated,
+) => {
   const [error, setError] = useState("");
   const [editingCampaign, setEditingCampaign] = useState(null);
 
@@ -33,6 +37,29 @@ export const useCampaignActions = (onCampaignUpdated, onCampaignDeleted) => {
     }
   };
 
+  const handleRerunCampaign = async (campaign) => {
+    try {
+      setError("");
+      // Create a copy of the campaign with a new name to indicate rerun
+      const newCampaignData = {
+        name: `${campaign.name} (Rerun)`,
+        description: campaign.description,
+        message: campaign.message,
+        recipients: campaign.recipients || campaign.targetList || [],
+        // copy other relevant fields if present
+        settings: campaign.settings || {},
+      };
+
+      const created = await campaignService.createCampaign(newCampaignData);
+      // Try to send immediately
+      await campaignService.sendCampaign(created._id);
+
+      if (onCampaignCreated) onCampaignCreated(created);
+    } catch (err) {
+      setError(err.message || "Failed to rerun campaign");
+    }
+  };
+
   const handleEditCampaign = (campaign) => {
     setEditingCampaign(campaign);
   };
@@ -56,5 +83,6 @@ export const useCampaignActions = (onCampaignUpdated, onCampaignDeleted) => {
     handleEditCampaign,
     handleCampaignUpdated,
     handleCancelEdit,
+    handleRerunCampaign,
   };
 };

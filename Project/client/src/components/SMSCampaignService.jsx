@@ -89,12 +89,12 @@ export default function SMSCampaignService() {
               <div className="section-header">
                 <h2>Campaigns</h2>
                 <div>
-                    <button
+                  <button
                     onClick={() => setShowCreateForm(!showCreateForm)}
                     className="btn-primary"
-                    >
+                  >
                     {showCreateForm ? "Cancel" : "New Campaign"}
-                    </button>
+                  </button>
                 </div>
               </div>
 
@@ -109,6 +109,7 @@ export default function SMSCampaignService() {
                 campaigns={campaigns}
                 onCampaignUpdated={handleCampaignUpdated}
                 onCampaignDeleted={handleCampaignDeleted}
+                onCampaignCreated={handleCampaignCreated}
               />
             </div>
           </div>

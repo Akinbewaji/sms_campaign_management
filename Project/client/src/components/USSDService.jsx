@@ -2,7 +2,7 @@
 
 import React from "react";
 import ServiceLayout from "./ServiceLayout";
-import "./ServicePlaceholder.css";
+import "./USSDService.css";
 
 export default function USSDService() {
   return (

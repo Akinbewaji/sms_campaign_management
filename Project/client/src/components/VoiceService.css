@@ -1,0 +1,44 @@
+.voice-service {
+  background: white;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.voice-service .placeholder-icon {
+  font-size: 72px;
+  margin-bottom: 20px;
+}
+
+.voice-service h2 {
+  font-size: 28px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.voice-service p {
+  color: #666;
+  max-width: 720px;
+  margin: 0 auto 24px auto;
+  line-height: 1.6;
+}
+
+.btn-voice {
+  background: linear-gradient(135deg, #4facfe 0%, #43e97b 100%);
+  color: white;
+  padding: 12px 28px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .voice-service {
+    padding: 24px;
+  }
+  .voice-service .placeholder-icon {
+    font-size: 56px;
+  }
+}

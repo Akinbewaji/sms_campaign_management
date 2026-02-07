@@ -10,6 +10,7 @@ export default function CampaignList({
   campaigns,
   onCampaignUpdated,
   onCampaignDeleted,
+  onCampaignCreated,
 }) {
   const {
     error,
@@ -17,9 +18,14 @@ export default function CampaignList({
     handleSendCampaign,
     handleDeleteCampaign,
     handleEditCampaign,
+    handleRerunCampaign,
     handleCampaignUpdated,
     handleCancelEdit,
-  } = useCampaignActions(onCampaignUpdated, onCampaignDeleted);
+  } = useCampaignActions(
+    onCampaignUpdated,
+    onCampaignDeleted,
+    onCampaignCreated,
+  );
 
   if (campaigns.length === 0) {
     return (
@@ -52,6 +58,7 @@ export default function CampaignList({
               onSend: () => handleSendCampaign(campaign._id),
               onEdit: () => handleEditCampaign(campaign),
               onDelete: () => handleDeleteCampaign(campaign._id),
+              onRerun: () => handleRerunCampaign(campaign),
             }}
             options={{
               showStats: true,
